@@ -34,7 +34,10 @@
             <div class="modify">
               수정
             </div>
-            <div class="delete">
+            <div
+              class="delete"
+              @click="deleteData(item.id)"
+            >
               삭제
             </div>
           </div>
@@ -100,6 +103,18 @@ export default {
         .catch((error) => {
           console.log(error)
         })        
+      },
+      deleteData (id) {
+        if(confirm('정말 지우시겠습니까?')){
+          axios.delete(`http://localhost:3000/api/todo/delete/${id}`)
+          .then((response) => {
+            console.log(response)
+            this.getData();
+          })
+          .catch((error) => {
+            console.log(error)
+          }) 
+        }
       }
     }
 }
