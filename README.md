@@ -1,29 +1,8 @@
-# summer-front
+# SUMMER, 이번 여름에 꼭 해보자
+버킷 리스트 입니다.    
+vue, spring boot 기반으로 CRUD 구현
 
-## Project setup
-```
-npm install
-```
+![cover](./thumbnail/image.png)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## back-end
+[백엔드 저장소 링크](https://github.com/skyepodium/summer-back)

@@ -31,4 +31,10 @@ export default {
     -o-background-size: cover;
     background-size: cover;
 }
+
+@media (min-width: 700px) {
+  .wrapper{
+    height: 300px;
+  }
+}
 </style>

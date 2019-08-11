@@ -27,7 +27,8 @@
             type="text"
             class="listInput"
             :value="item.text"
-            :readonly="!item.readonly"
+            :readonly="item.readonly"
+            :class="{'listInputModify': !item.readonly}"
             @input="item.text = $event.target.value"
             @keydown.enter="putData(item)"
           >
@@ -67,8 +68,8 @@ export default {
     },
     methods: {
       textMode (val){
-        if(val) return '확인'
-        else return '수정'
+        if(val) return '수정'
+        else return '확인'
       },
       emptyCheck(val){
         if(val === '' || val === undefined || val === null) return false
@@ -91,7 +92,7 @@ export default {
           let list = response.data
 
           for(let item of list){
-            item.readonly = false
+            item.readonly = true
           }
 
           this.list = list
@@ -142,7 +143,7 @@ export default {
       },
       modify ( item ) {
         item.readonly = !item.readonly
-        if(!item.readonly){
+        if(item.readonly){
           this.putData (item)
         }
       }
@@ -217,6 +218,11 @@ export default {
   float: left;
   width: calc(100% - 100px);
   font-size: 18px;
+  border: 2px dotted transparent;
+}
+
+.listInputModify{
+  border-bottom-color: rgb(79, 44, 250);;
 }
 
 .listButton {
@@ -239,5 +245,11 @@ export default {
   line-height: 40px;
   float: right;
   text-align: center;
+}
+
+@media (min-width: 700px) {
+  .wrapper{
+    width: 700px;
+  }
 }
 </style>
