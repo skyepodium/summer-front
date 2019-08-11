@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TheHeader />
+    <TheTitle />
+    <router-view />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TheHeader from '@/layouts/TheHeader.vue'
+import TheTitle from '@/layouts/TheTitle.vue'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld
+    TheHeader,
+    TheTitle
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+input[type="text"], input[type="password"] { 
+  outline: none; 
 }
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR|Nunito&display=swap');
+
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* font-family: 'Nunito', sans-serif; */
 </style>
