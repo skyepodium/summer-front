@@ -6,8 +6,14 @@
           class="mainInput"
           type="text"
           placeholder="나는 이번 여름에 이것을 꼭!!!"
+          :value="text"
+          @keydown.enter="sendText"
+          @input="text = $event.target.value"
         >
-        <div class="mainButton">
+        <div
+          class="mainButton"
+          @click="sendText"
+        >
           한다
         </div>
       </div>
@@ -46,38 +52,54 @@ export default {
     data () {
       return {
         text: '',
-        list: [
-          {
-            text: '동기들이랑 여행가기',
-            readonly: true
-          },
-          {
-            text: '리틀포레스트 처럼 살기',
-            readonly: true
-          },
-          {
-            text: '생각 줄이고 더 많이 느끼기',
-            readonly: true
-          },
-          {
-            text: '워우워~',
-            readonly: true
-          }
-        ]
+        list: []
       }
     },
     created() {
       this.getData();
     },
     methods: {
+      emptyCheck(val){
+        if(val === '' || val === undefined || val === null) return false
+        else return true
+      },
+      sendText () {
+        if(this.emptyCheck(this.text)) {
+          let text = this.text
+          this.text = ''
+          this.postData(text)
+        }
+        else{
+          alert('이번 여름에 하고 싶은 일을 적어보세요~')
+        }
+      },
       getData () {
         axios.get('http://localhost:3000/api/todo/get')
         .then((response) => {
-          console.log(response)
+
+          let list = response.data
+
+          for(let item of list){
+            item.readonly = false
+          }
+
+          this.list = list
+
+          console.log(list)
         })
         .catch((error) => {
           console.log(error)
         })
+      },
+      postData (text) {
+        axios.post('http://localhost:3000/api/todo/post', {text: text})
+        .then((response) => {
+          console.log(response)
+          this.getData();
+        })
+        .catch((error) => {
+          console.log(error)
+        })        
       }
     }
 }
