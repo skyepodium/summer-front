@@ -27,12 +27,16 @@
             type="text"
             class="listInput"
             :value="item.text"
-            :readonly="item.readonly"
+            :readonly="!item.readonly"
             @input="item.text = $event.target.value"
+            @keydown.enter="putData(item)"
           >
           <div class="listButton">
-            <div class="modify">
-              수정
+            <div
+              class="modify"
+              @click="modify(item)"
+            >
+              {{ textMode(item.readonly) }}
             </div>
             <div
               class="delete"
@@ -62,6 +66,10 @@ export default {
       this.getData();
     },
     methods: {
+      textMode (val){
+        if(val) return '확인'
+        else return '수정'
+      },
       emptyCheck(val){
         if(val === '' || val === undefined || val === null) return false
         else return true
@@ -114,6 +122,28 @@ export default {
           .catch((error) => {
             console.log(error)
           }) 
+        }
+      },
+      putData (item) {
+
+        let info = {
+          id: item.id,
+          text: item.text
+        }
+
+        axios.put('http://localhost:3000/api/todo/put', info)
+        .then((response) => {
+          console.log(response)
+          this.getData();
+        })
+        .catch((error) => {
+          console.log(error)
+        })            
+      },
+      modify ( item ) {
+        item.readonly = !item.readonly
+        if(!item.readonly){
+          this.putData (item)
         }
       }
     }
